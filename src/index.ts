@@ -1,7 +1,22 @@
-async function main() {
+import * as dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
+
+export async function main() {
   const tenantId = process.env.TENANT_ID;
   const apiId = process.env.CLIENT_ID;
   const apiSecret = process.env.API_SECRET;
+
+  console.log("tenantId:", tenantId);
+  console.log("apiId:", apiId);
+  console.log("apiSecret:", apiSecret);
+
+  if (!tenantId || !apiId || !apiSecret) {
+    console.error("Missing environment variables");
+    throw new Error("Missing environment variables");
+  }
+
   const token = await getAccessToken(tenantId, apiId, apiSecret);
   const response = await sendToNoxtua(
     token,
@@ -15,17 +30,21 @@ main();
 
 const REGEX_PATTERN = /event\: (.+)\ndata: (\{.*\})/gm;
 
-async function sendToNoxtua(token: string, tenantId: string, message: string) {
+export async function sendToNoxtua(
+  token: string,
+  tenantId: string,
+  message: string
+) {
   const sessionHeaders = new Headers();
 
   sessionHeaders.append("tenant-id", tenantId);
   sessionHeaders.append("Authorization", `Bearer ${token}`);
   console.log(`Token: ${token}`);
 
-  const requestOptions1 = {
+  const requestOptions1: RequestInit = {
     method: "POST",
     headers: sessionHeaders,
-    redirect: "follow",
+    redirect: "follow" as RequestRedirect,
   };
 
   const resSession = (
@@ -45,24 +64,25 @@ async function sendToNoxtua(token: string, tenantId: string, message: string) {
       },
     ],
   });
-  const requestOptions2 = {
+  const requestOptions2: RequestInit = {
     method: "POST",
     headers: sessionHeaders,
     body: raw,
-    redirect: "follow",
+    redirect: "follow" as RequestRedirect,
   };
   const resM = await fetch(
     `https://app.noxtua.ai/v2/api/chat/sessions/${resSession}/messages`,
     requestOptions2
   );
   let buffer = "";
+
   for await (const message of decodeStreamToJson(resM.body)) {
     buffer += message;
   }
   return buffer;
 }
 
-async function getAccessToken(
+export async function getAccessToken(
   tenantId: string,
   apiId: string,
   apiSecret: string
@@ -73,11 +93,11 @@ async function getAccessToken(
   urlencoded.append("client_id", apiId);
   urlencoded.append("grant_type", "client_credentials");
   urlencoded.append("client_secret", apiSecret);
-  const tokenRequestOptions = {
+  const tokenRequestOptions: RequestInit = {
     method: "POST",
     headers: tokenHeaders,
     body: urlencoded,
-    redirect: "follow",
+    redirect: "follow" as RequestRedirect,
   };
   const res = await fetch(
     `https://app.noxtua.ai/v2/auth/realms/${tenantId}/protocol/openid-connect/token`,
@@ -92,7 +112,7 @@ ${JSON.stringify(bodyJson)}`);
   return token;
 }
 
-async function* decodeStreamToJson(data: any) {
+async function* decodeStreamToJson(data: ReadableStream<Uint8Array> | null) {
   if (!data) return;
   const reader = data.getReader();
   const decoder = new TextDecoder();
