@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import { readFileSync } from "fs";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -18,12 +19,28 @@ export async function main() {
   }
 
   const token = await getAccessToken(tenantId, apiId, apiSecret);
-  const response = await sendToNoxtua(
+  // const response = await sendToNoxtua(
+  //   token,
+  //   tenantId,
+  //   "What is your name, and what is your specialization and what do you allow customers to do?"
+  // );
+  // console.log("Answer ->", response);
+
+  // const documentPath = "./documents/city.pdf";
+  // const documentPath = "./src/documents/city.pdf";
+  const documentPath = "./src/documents/hello.txt"; // replace with your document path
+  const documentName = "city.pdf"; // replace with your document name
+
+  // Send a document with a request
+  const responseWithDoc = await sendDocumentToNoxtua(
     token,
     tenantId,
-    "What is your name, and can you please count to 10"
+    documentPath,
+    documentName,
+    "summarise what is in the document"
   );
-  console.log(response);
+
+  console.log("Document Response ->", responseWithDoc);
 }
 
 main();
@@ -39,7 +56,6 @@ export async function sendToNoxtua(
 
   sessionHeaders.append("tenant-id", tenantId);
   sessionHeaders.append("Authorization", `Bearer ${token}`);
-  console.log(`Token: ${token}`);
 
   const requestOptions1: RequestInit = {
     method: "POST",
@@ -80,6 +96,84 @@ export async function sendToNoxtua(
     buffer += message;
   }
   return buffer;
+}
+
+export async function sendDocumentToNoxtua(
+  token: string,
+  tenantId: string,
+  documentPath: string,
+  promptInquiry: string,
+  documentName: string
+) {
+  try {
+    const sessionHeaders = new Headers();
+
+    sessionHeaders.append("tenant-id", tenantId);
+    sessionHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions1: RequestInit = {
+      method: "POST",
+      headers: sessionHeaders,
+      redirect: "follow" as RequestRedirect,
+    };
+
+    const resSession = (
+      await (
+        await fetch(
+          "https://app.noxtua.ai/v2/api/chat/sessions",
+          requestOptions1
+        )
+      ).json()
+    )["session"];
+
+    sessionHeaders.append("Accept", "json/event-stream");
+    sessionHeaders.append("Content-Type", "application/json");
+
+    // Read the document and encode it to base64
+    const fileContent = readFileSync(documentPath, { encoding: "base64" });
+
+    const raw = JSON.stringify({
+      messages: [
+        {
+          binary: fileContent,
+          name: documentName,
+          type: "file",
+        },
+        {
+          text: promptInquiry,
+          type: "text",
+        },
+      ],
+    });
+
+    console.log("Request Body:", raw); // Log the request body for debugging
+
+    const requestOptions2: RequestInit = {
+      method: "POST",
+      headers: sessionHeaders,
+      body: raw,
+      redirect: "follow" as RequestRedirect,
+    };
+
+    const resM = await fetch(
+      `https://app.noxtua.ai/v2/api/chat/sessions/${resSession}/messages`,
+      requestOptions2
+    );
+
+    let buffer = "";
+
+    for await (const message of decodeStreamToJson(resM.body)) {
+      buffer += message;
+    }
+
+    return buffer;
+  } catch (error: any) {
+    console.error(
+      "an error occurred while sending document to noxtua",
+      error,
+      error.message
+    );
+  }
 }
 
 export async function getAccessToken(
