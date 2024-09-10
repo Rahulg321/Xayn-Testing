@@ -38,13 +38,14 @@ export async function evaluateNoxtuaResponse(
       model: groq("llama-3.1-70b-versatile"),
       schema: testRatingSchema,
       prompt: `You are a helpful AI Assistant evaluating responses from a legal Copilot. I have asked it 4 different but similar legal-related questions. Below are the combined responses it provided: ${combinedResponse}.
-      Please rate the combined response on a scale of 0 to 5, where 5 represents highly accurate and relevant answers, and 0 indicates poor or irrelevant answers. In addition to the rating, explain your reasoning in detail, covering the accuracy, clarity, and completeness of the answers.`,
+      Please rate the combined response on a scale of 0 to 5, where 5 represents highly accurate and relevant answers, and 0 indicates poor or irrelevant answers. In addition to the rating, explain your reasoning in less than 200 words, covering the accuracy, clarity, and completeness of the answers.`,
     });
 
     console.log("Result generated for response analysis", result);
 
     return { type: "success", result: result.object };
   } catch (error) {
+    console.log(error);
     if (TypeValidationError.isInstance(error)) {
       return { type: "validation-error", value: error.value };
     } else if (JSONParseError.isInstance(error)) {
