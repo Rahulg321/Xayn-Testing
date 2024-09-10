@@ -1,13 +1,19 @@
 import { generateText } from "ai";
 import * as dotenv from "dotenv";
 import { readFileSync } from "fs";
-import { llamaGenerateResponse } from "./ai/generateText";
+import {
+  llamaGenerateResponse,
+  openaiGenerateResponse,
+} from "./ai/generateText";
 import { evaluateNoxtuaResponse } from "./ai/EvaluateNoxtuaResponse";
 
 // Load environment variables from .env file
 dotenv.config();
 
 export async function main() {
+  console.log("calling open ai");
+  console.log(await openaiGenerateResponse());
+
   // const tenantId = process.env.TENANT_ID;
   // const apiId = process.env.CLIENT_ID;
   // const apiSecret = process.env.API_SECRET;
@@ -99,6 +105,9 @@ export async function sendToNoxtua(
     `https://app.noxtua.ai/v2/api/chat/sessions/${resSession}/messages`,
     requestOptions2
   );
+
+  console.log("resM from noxtua text", resM);
+
   let buffer = "";
 
   for await (const message of decodeStreamToJson(resM.body)) {
