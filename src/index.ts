@@ -1,36 +1,43 @@
+import { generateText } from "ai";
 import * as dotenv from "dotenv";
 import { readFileSync } from "fs";
+import { llamaGenerateResponse } from "./ai/generateText";
+import { evaluateNoxtuaResponse } from "./ai/EvaluateNoxtuaResponse";
 
 // Load environment variables from .env file
 dotenv.config();
 
 export async function main() {
-  const tenantId = process.env.TENANT_ID;
-  const apiId = process.env.CLIENT_ID;
-  const apiSecret = process.env.API_SECRET;
+  console.log("running the main function for llama3.1");
 
-  console.log("tenantId:", tenantId);
-  console.log("apiId:", apiId);
-  console.log("apiSecret:", apiSecret);
+  const response = await evaluateNoxtuaResponse();
+  console.log("response from llama is->", response);
+  // const tenantId = process.env.TENANT_ID;
+  // const apiId = process.env.CLIENT_ID;
+  // const apiSecret = process.env.API_SECRET;
 
-  if (!tenantId || !apiId || !apiSecret) {
-    console.error("Missing environment variables");
-    throw new Error("Missing environment variables");
-  }
+  // console.log("tenantId:", tenantId);
+  // console.log("apiId:", apiId);
+  // console.log("apiSecret:", apiSecret);
 
-  const token = await getAccessToken(tenantId, apiId, apiSecret);
-  console.log("received token was", token);
+  // if (!tenantId || !apiId || !apiSecret) {
+  //   console.error("Missing environment variables");
+  //   throw new Error("Missing environment variables");
+  // }
 
-  if (!token) {
-    throw new Error("Token was undefined");
-  }
+  // const token = await getAccessToken(tenantId, apiId, apiSecret);
+  // console.log("received token was", token);
 
-  const response = await sendToNoxtua(
-    token,
-    tenantId,
-    "What is your name, and what is your specialization and what do you allow customers to do?"
-  );
-  console.log("Answer ->", response);
+  // if (!token) {
+  //   throw new Error("Token was undefined");
+  // }
+
+  // const response = await sendToNoxtua(
+  //   token,
+  //   tenantId,
+  //   "What is your name, and what is your specialization and what do you allow customers to do?"
+  // );
+  // console.log("Answer ->", response);
 
   const documentPath = "./src/documents/invoice.pdf"; // replace with your document path
   const documentName = "invoice.pdf"; // replace with your document name
