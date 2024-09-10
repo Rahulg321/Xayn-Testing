@@ -8,10 +8,6 @@ import { evaluateNoxtuaResponse } from "./ai/EvaluateNoxtuaResponse";
 dotenv.config();
 
 export async function main() {
-  console.log("running the main function for llama3.1");
-
-  const response = await evaluateNoxtuaResponse();
-  console.log("response from llama is->", response);
   // const tenantId = process.env.TENANT_ID;
   // const apiId = process.env.CLIENT_ID;
   // const apiSecret = process.env.API_SECRET;
