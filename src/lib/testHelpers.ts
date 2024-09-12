@@ -66,9 +66,7 @@ export const writeLogs = async (
 
   const currentDir = process.cwd();
 
-  console.log("currentDir", currentDir);
   const currentPwd = `${currentDir}/src/tests/${testDir}`;
-  console.log("currentPwd", currentPwd);
 
   const aiResponsesFilePath = path.join(currentPwd, aiResponsesFile);
   const ratingFilePath = path.join(currentPwd, ratingFile);
