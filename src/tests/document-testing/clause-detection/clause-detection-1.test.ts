@@ -20,10 +20,10 @@ let evaluationResult: {
 };
 
 let prompt =
-  "How does Article I of the document contribute to identifying it as an employment contract?";
+  "Can you identify and list all the key legal clauses present in this document?";
 
 // Test suite
-describe("document testing report for type indentification", async () => {
+describe(`Document Testing: ${prompt}`, async () => {
   // Mock the GPT analysis function
   beforeAll(async () => {
     testLogs.push(
@@ -33,10 +33,10 @@ describe("document testing report for type indentification", async () => {
 
     expect(token).toBeDefined();
     expect(tenantId).toBeDefined();
-
-    testLogs.push("gathering the ai responses for this test");
-    const documentPath =
-      "./src/tests/document-testing/type-identification/law_insider.docx"; // replace with your document path
+    testLogs.push(
+      "gathering the ai responses for this type identification test"
+    );
+    const documentPath = "./src/documents/law_insider.docx"; // replace with your document path
     const documentName = "law_insider.docx"; // replace with your document name
 
     aiResponse = await evaluateNoxtuaDocumentResponse(
@@ -48,17 +48,18 @@ describe("document testing report for type indentification", async () => {
     );
 
     expect(aiResponse).toBeDefined();
+
     console.log("ai response was", aiResponse);
 
     testLogs.push("ai response by sending a document gathered");
   }, 60000);
 
-  it("should define all AI responses", async () => {
+  it("should define all AI responses for this document testing", async () => {
     expect(aiResponse).toBeDefined();
     testLogs.push("All responses are defined and match the question length");
   });
 
-  it("type identification analysis by ai, must recieve a response and a rating back", async () => {
+  it("type identification analysis by ai, must recieve a response and a rating back from chatgpt", async () => {
     const chatGPTResult = await evaluateDocumentResponseFromNoxtua(
       prompt,
       aiResponse
@@ -72,7 +73,7 @@ describe("document testing report for type indentification", async () => {
       expect(chatGPTResult.result.reasonForRating).toBeDefined();
       evaluationResult = chatGPTResult.result;
       testLogs.push(
-        "Test 2: Legal privilege analysis returned a valid response with a rating."
+        `Test 2: AI Analysis for Document Testing with the prompt ${prompt} returned a valid response with a rating.`
       );
     }
 
@@ -96,8 +97,8 @@ describe("document testing report for type indentification", async () => {
 
   afterAll(async () => {
     await saveDocumentTestResult({
-      prompt: "explain a legal consulting agreement document",
-      testCategory: "Type Indentification",
+      prompt,
+      testCategory: "Clause Detection and Extraction",
       testName: "Article1",
       documentName: "law_insider.docx",
       documentType: "Employee Agreement",

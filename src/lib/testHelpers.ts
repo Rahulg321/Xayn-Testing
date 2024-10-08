@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { NoxtuaResponse } from "./types";
-import { sendDocumentToNoxtua, sendToNoxtua } from "..";
+import { sendDocumentToNoxtua, sendMultipleDocuments, sendToNoxtua } from "..";
 import { evaluateNoxtuaResponse } from "../ai/EvaluateNoxtuaResponse";
 import { combineResponses, generateLogFileName } from "./utils";
 import DocumentTestResult from "./schemas/DocumentTestResult";
@@ -23,6 +23,27 @@ export const evaluateNoxtuaDocumentResponse = async (
     documentPath,
     promptInquiry,
     documentName
+  );
+
+  if (!response) {
+    return "Error";
+  }
+
+  return response;
+};
+
+export const evaluateMultipleNoxtuaDocumentResponse = async (
+  documents: { path: string; name: string }[], // Update to accept an array of documents
+  promptInquiry: string,
+  token: string,
+  tenantId: string
+): Promise<string> => {
+  // Call sendMultipleDocuments with the updated documents parameter
+  const response = await sendMultipleDocuments(
+    token,
+    tenantId,
+    documents, // Pass the documents array
+    promptInquiry
   );
 
   if (!response) {

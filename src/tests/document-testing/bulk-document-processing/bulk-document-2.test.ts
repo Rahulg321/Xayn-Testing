@@ -6,6 +6,7 @@ import {
   evaluateNoxtuaResponse,
 } from "../../../ai/EvaluateNoxtuaResponse";
 import {
+  evaluateMultipleNoxtuaDocumentResponse,
   evaluateNoxtuaDocumentResponse,
   saveDocumentTestResult,
 } from "../../../lib/testHelpers";
@@ -19,11 +20,14 @@ let evaluationResult: {
   reasonForRating: string;
 };
 
+let documentName = "subscription_agreement.docx";
+let testCategory = "Bulk Document Processing";
+
 let prompt =
-  "How does Article I of the document contribute to identifying it as an employment contract?";
+  "summarize all documents in the batch and return a brief overview of each document.";
 
 // Test suite
-describe("testing noxtua response for sending consulting agreement in english", async () => {
+describe(`Document Testing: ${prompt}`, async () => {
   // Mock the GPT analysis function
   beforeAll(async () => {
     testLogs.push(
@@ -33,32 +37,47 @@ describe("testing noxtua response for sending consulting agreement in english", 
 
     expect(token).toBeDefined();
     expect(tenantId).toBeDefined();
+    testLogs.push(
+      `gathering the ai responses for category ->  ${testCategory}`
+    );
 
-    testLogs.push("gathering the ai responses for this test");
-    const documentPath =
-      "./src/tests/document-testing/multi-linguial/law_insider.docx"; // replace with your document path
-    const documentName = "law_insider.docx"; // replace with your document name
+    const documentPath = `./src/documents/${documentName}`; // replace with your document path
 
-    aiResponse = await evaluateNoxtuaDocumentResponse(
-      documentName,
-      documentPath,
+    let documents = [
+      {
+        path: "./src/documents/master_agreement.pdf",
+        name: "master_agreement.pdf",
+      },
+      {
+        path: "./src/documents/software_license_agreement.pdf",
+        name: "software_license_agreement.pdf",
+      },
+      {
+        path: "./src/documents/subscription_agreement.docx",
+        name: "subscription_agreement.pdf",
+      },
+    ];
+
+    aiResponse = await evaluateMultipleNoxtuaDocumentResponse(
+      documents,
       prompt,
       token,
       tenantId
     );
 
     expect(aiResponse).toBeDefined();
+
     console.log("ai response was", aiResponse);
 
     testLogs.push("ai response by sending a document gathered");
   }, 60000);
 
-  it("should define all AI responses", async () => {
+  it("should define all AI responses for this document testing", async () => {
     expect(aiResponse).toBeDefined();
     testLogs.push("All responses are defined and match the question length");
   });
 
-  it("documenation standard for legal privilege analysis by ai, must recieve a response and a rating back", async () => {
+  it("type identification analysis by ai, must recieve a response and a rating back from chatgpt", async () => {
     const chatGPTResult = await evaluateDocumentResponseFromNoxtua(
       prompt,
       aiResponse
@@ -72,7 +91,7 @@ describe("testing noxtua response for sending consulting agreement in english", 
       expect(chatGPTResult.result.reasonForRating).toBeDefined();
       evaluationResult = chatGPTResult.result;
       testLogs.push(
-        "Test 2: Legal privilege analysis returned a valid response with a rating."
+        `Test 2: AI Analysis for Document Testing with the prompt ${prompt} returned a valid response with a rating.`
       );
     }
 
@@ -96,11 +115,12 @@ describe("testing noxtua response for sending consulting agreement in english", 
 
   afterAll(async () => {
     await saveDocumentTestResult({
-      prompt: "explain a legal consulting agreement document",
-      testCategory: "Document-Based-Testing",
-      testName: "Multi-Lingual",
-      documentName: "law_insider.docx",
-      documentType: "Employee Agreement",
+      prompt,
+      testCategory,
+      testName: "Bulk Document Processing",
+      documentName,
+      documentType:
+        "Subscription Agreement / Sofware License Agreement and Master Service Agreement",
       aiResponse,
       evaluationRating: evaluationResult.overallRating,
       evaluationResponse: evaluationResult.reasonForRating,

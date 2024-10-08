@@ -1,0 +1,21 @@
+Contrat de prestation de services
+
+Article 1 : Objet du contrat
+
+Le présent contrat a pour objet de définir les conditions dans lesquelles [Nom du prestataire] s'engage à fournir à [Nom du client] les services décrits ci-après.
+
+Article 2 : Durée du contrat
+
+Le présent contrat prend effet à compter du [Date de début] pour une durée de [Durée en mois/années], renouvelable automatiquement sauf résiliation par l'une des parties dans les conditions prévues à l'article 5.
+
+Article 3 : Obligations du prestataire
+
+Le prestataire s'engage à fournir les services conformément aux termes et conditions du présent contrat. Il s’engage également à exécuter ses obligations avec diligence et professionnalisme, en respectant les délais convenus.
+
+Article 4 : Rémunération
+
+En contrepartie des services fournis, le client s’engage à payer au prestataire la somme de [Montant en euros] hors taxes, payable selon les modalités définies dans le devis annexé au présent contrat.
+
+Article 5 : Résiliation
+
+Le présent contrat peut être résilié par l'une ou l'autre des parties moyennant un préavis de [Nombre de jours] jours, adressé par lettre recommandée avec accusé de réception. En cas de non-respect des obligations par l'une des parties, l'autre partie pourra résilier le contrat immédiatement sans préavis.

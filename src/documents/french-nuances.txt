@@ -1,0 +1,77 @@
+1. Contrat de Travail à Durée Déterminée (CDD)
+Article 1 : Objet du contrat
+
+Le présent contrat à durée déterminée (CDD) est conclu entre [Nom de l'employeur] et [Nom du salarié] pour pourvoir un poste temporaire de [Désignation du poste] afin de remplacer un salarié absent.
+
+Article 2 : Durée et renouvellement
+
+Le présent contrat est conclu pour une durée déterminée, commençant le [Date de début] et prenant fin le [Date de fin]. Il pourra être renouvelé une fois, conformément aux dispositions de l'article L1243-13 du Code du travail.
+
+Article 3 : Période d'essai
+
+Une période d'essai de [Durée de la période] est prévue à compter du premier jour de travail. Durant cette période, chaque partie pourra rompre le contrat sans préavis, conformément à la législation en vigueur.
+
+2. Accord de Confidentialité (NDA)
+Article 1 : Objet de l'accord
+
+Dans le cadre des discussions et négociations entre [Nom de la partie 1] et [Nom de la partie 2], les parties échangeront des informations sensibles et confidentielles. Le présent accord a pour objet de définir les modalités de protection de ces informations.
+
+Article 2 : Définition des informations confidentielles
+
+Les informations confidentielles incluent, sans s'y limiter, toutes les informations commerciales, techniques, financières ou stratégiques, échangées verbalement ou par écrit entre les parties.
+
+Article 3 : Obligations des parties
+
+Les parties s'engagent à garder les informations confidentielles strictement secrètes et à ne pas les divulguer à des tiers sans l'autorisation écrite préalable de l'autre partie, sauf en cas d'obligation légale ou judiciaire.
+
+3. Contrat de Prestation de Services Informatiques
+Article 1 : Objet du contrat
+
+Le présent contrat a pour objet de définir les conditions dans lesquelles [Nom du prestataire] s'engage à fournir à [Nom du client] des prestations de services informatiques, incluant le développement de logiciels, la maintenance et l’assistance technique.
+
+Article 2 : Durée et calendrier des prestations
+
+Les prestations débuteront le [Date de début] et devront être achevées au plus tard le [Date de fin], selon le calendrier établi dans l'annexe 1. En cas de retard non justifié par des raisons externes, le prestataire pourra être soumis à des pénalités de retard.
+
+Article 3 : Propriété intellectuelle
+
+Le prestataire cède au client, à compter du paiement intégral, tous les droits de propriété intellectuelle sur les logiciels développés dans le cadre du présent contrat. Cette cession inclut les droits de reproduction, de modification et d’exploitation commerciale.
+
+4. Convention de Bail Commercial
+Article 1 : Désignation des locaux
+
+Le présent bail porte sur les locaux situés au [Adresse complète], d'une surface de [Nombre de mètres carrés], destinés à un usage exclusivement commercial par [Nom du locataire].
+
+Article 2 : Durée du bail
+
+Le bail est conclu pour une durée de neuf (9) ans à compter du [Date de début]. Chaque partie pourra donner congé à l'expiration de chaque période triennale, sous réserve du respect d'un préavis de six mois par lettre recommandée avec accusé de réception.
+
+Article 3 : Loyers et charges
+
+Le loyer annuel est fixé à [Montant] euros, payable mensuellement d'avance le [Jour du mois]. Le locataire sera également responsable du paiement des charges locatives détaillées en annexe, incluant l'entretien des parties communes et les taxes locales.
+
+5. Règlement de Litige Commercial
+Article 1 : Objet du litige
+
+Le présent document vise à résoudre le litige survenu entre [Nom de la partie A] et [Nom de la partie B] concernant [Description du litige], conformément aux termes des articles 1224 et suivants du Code civil français.
+
+Article 2 : Tentative de conciliation
+
+Les parties conviennent de tenter une résolution amiable de leur différend en désignant un médiateur dans un délai de [Nombre de jours] à compter de la signature du présent règlement. En cas d’échec, les parties se réservent le droit de porter l'affaire devant les tribunaux compétents de [Ville].
+
+Article 3 : Clause compromissoire
+
+En cas d'échec de la médiation, les parties s'engagent à soumettre leur litige à un arbitrage conformément aux règles du Centre de Médiation et d’Arbitrage de Paris. La décision de l’arbitre sera définitive et contraignante pour les deux parties.
+
+6. Conditions Générales de Vente (CGV)
+Article 1 : Objet et champ d'application
+
+Les présentes conditions générales de vente (CGV) régissent la vente de produits par [Nom de l’entreprise] à ses clients professionnels. Toute commande implique l'acceptation sans réserve des présentes CGV.
+
+Article 2 : Prix et modalités de paiement
+
+Les prix des produits sont indiqués en euros, hors taxes. Le paiement devra être effectué dans un délai de [Nombre de jours] à compter de la date de facturation, par virement bancaire sur le compte de l’entreprise.
+
+Article 3 : Livraison et transfert des risques
+
+Les produits sont livrés à l'adresse indiquée par le client lors de la commande. Le transfert des risques a lieu dès la remise des produits au transporteur, même si le transport est pris en charge par le vendeur.
